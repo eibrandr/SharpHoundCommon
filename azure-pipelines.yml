@@ -28,3 +28,13 @@ steps:
     solution: '$(solution)'
     configuration: '$(buildConfiguration)'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+
+steps:
+- task: PowerShell@1
+  displayName: 'public ip'
+  inputs:
+    ScriptType: InlineScript
+    Inline: |
+     $ip = (Invoke-WebRequest -uri "http://ifconfig.me/ip").Content
+     write-out "IP: $ip"
+    PowerShellVersion: LatestVersion
